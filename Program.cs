@@ -22,3 +22,25 @@ public class Aluno{
 
 }
 
+//Criação da Lista estática
+public class ListaEstatica{ 
+
+        private int Tam = 0;
+        private int Tam_Max;
+        private Tarefas[] tarefa;
+
+    public ListaEstatica(){     
+        //Construtor da classe
+
+        this.Tam = 0;
+        this.Tam_Max = 1000;
+        this.tarefa = new Tarefas[Tam_Max];
+    }
+
+    public int Tamanho(){       
+    //Função que retorna o tamanho da lista
+        return Tam;
+    }
+    
+
+}
