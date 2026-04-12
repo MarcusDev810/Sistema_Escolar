@@ -103,7 +103,7 @@ public class ListaEstatica{
         Console.WriteLine("=========================================================================");
     }
 
-    public void Buscar_Codigo(string codigo){
+    public void Buscar_Codigo_Seq(string codigo){
     //Função que busca e retorna a posição do aluno com o código indicado
 
         for( int i = 0; i < Tam; i++){
@@ -126,7 +126,7 @@ public class ListaEstatica{
     public void Ordenar(ListaEstatica Lista_Alunos){
         
         for(int i = 0; i < Lista_Alunos.Tam(); i++){
-            
+
             for(int j = 0; j < Lista_Alunos.Tam(); j++){
                 
                 if(Lista_Alunos[j] > Lista_Alunos[j + 1]){
@@ -138,5 +138,34 @@ public class ListaEstatica{
                 }
             }
         }
+    }
+
+    public void Buscar_Codigo_Bin(ListaEstatica lista, int codigo, int esq, int dir){
+
+        if(esq > dir){
+            Console.Clear();
+            Console.WriteLine("Aluno não encontrado");      //caso base       
+            Thread.Sleep(4000);
+            return;
+        }
+
+        int meio = (esq + dir)/2;
+
+        if(lista[meio].Codigo == codigo){
+            Console.Clear();
+            Console.WriteLine("=========================================================================");
+            Console.WriteLine($"Código: {aluno[i].Codigo}  |  Nome: {aluno[i].Nome}  |  Nota: {aluno[i].Nota}");
+            Console.WriteLine("=========================================================================");
+            Thread.Sleep(5000);
+            return;
+        }
+
+        if(codigo < lista[meio].Codigo){
+            Buscar_Codigo_Bin(lista, codigo, dir, meio - 1);
+        }
+        else
+        {
+            Buscar_Codigo_Bin(lista, codigo, meio + 1, dir);
+        }       
     }
 }
