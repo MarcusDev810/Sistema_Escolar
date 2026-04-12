@@ -70,7 +70,7 @@ public class ListaEstatica{
             aluno[i] = aluno[i - 1];
         }
 
-        aluno[pos] = new Tarefas(codigo, nome, nota);
+        aluno[pos] = new Alunos(codigo, nome, nota);
         Tam++;
     }
 
@@ -80,7 +80,7 @@ public class ListaEstatica{
             return;
         }
 
-        tarefa[Tam] = new Tarefas(codigo, nome, nota);
+        aluno[Tam] = new Alunos(codigo, nome, nota);
         Tam++;
     }
 
@@ -101,5 +101,25 @@ public class ListaEstatica{
         }
 
         Console.WriteLine("=========================================================================");
+    }
+
+    public void Buscar_Codigo(string codigo){
+    //Função que busca e retorna a posição do aluno com o código indicado
+
+        for( int i = 0; i < Tam; i++){
+            if(aluno[i].Codigo == codigo()){
+
+                Console.Clear();
+                Console.WriteLine("=========================================================================");
+                Console.WriteLine($"Código: {aluno[i].Codigo}  |  Nome: {aluno[i].Nome}  |  Nota: {aluno[i].Nota}");
+                Console.WriteLine("=========================================================================");
+                Thread.Sleep(5000);
+                return ;
+            }
+        }
+
+        Console.WriteLine("Aluno não encontrado");
+        return ;  
+        
     }
 }
