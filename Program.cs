@@ -122,4 +122,21 @@ public class ListaEstatica{
         return ;  
         
     }
+
+    public void Ordenar(ListaEstatica Lista_Alunos){
+        
+        for(int i = 0; i < Lista_Alunos.Tam(); i++){
+            
+            for(int j = 0; j < Lista_Alunos.Tam(); j++){
+                
+                if(Lista_Alunos[j] > Lista_Alunos[j + 1]){
+                    
+                    var temp = Lista_Alunos[j];
+                    Lista_Alunos[j] = Lista_Alunos[j + 1];
+                    Lista_Alunos[j = 1] = temp;
+
+                }
+            }
+        }
+    }
 }
