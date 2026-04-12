@@ -1,13 +1,168 @@
 ﻿namespace Sistema_Escolar;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Hello, World!");
+class Program{
+    static void Main(){
+
+        ListaEstatica lista = new ListaEstatica();
+        int opcao;
+
+
+        do{
+            Console.Clear();
+            opcao = Menu();
+
+            switch (opcao){
+                case 1: 
+                    lista.Imprimir();
+                    Thread.Sleep(6000);
+                break;
+
+                case 2: 
+                    Adicionar(lista);
+                break;
+
+                case 3: 
+                    Buscar(lista);
+                break;
+
+                case 4: 
+                    Console.Clear();
+                    Console.WriteLine("A lista de aluno será ordenada.");
+                    Thread.Sleep(2500);
+                    Console.Clear();
+                    lista.Ordenar();
+                    Console.WriteLine("A lista de alunos foi ordenada!");
+                break;
+   
+            }
+
+            
+        } while (opcao != 0);
+
+        
+    }
+
+    static void Adicionar(ListaEstatica lista){
+
+            string nome;
+            int codigo;
+            double nota;
+
+            Console.Clear();
+            Console.WriteLine("===== ADICIONAR =====");
+            Console.WriteLine("Qual o nome do aluno?:");
+            nome = Console.ReadLine();
+
+            Console.WriteLine("Qual 0 código dele?:");
+            codigo = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Qual a nota dele?:");
+            nota = double.Parse(Console.ReadLine());
+
+            lista.Adicionar_Final(codigo, nome, nota);
+
+            Console.Clear();
+            Console.WriteLine("Aluno adicionado!");
+            Thread.Sleep(2000);
+    }
+
+    static void Buscar(ListaEstatica lista){
+                    
+        Console.Clear();
+        Console.WriteLine("Você deseja fazer qual tipo de busca?");
+        Console.WriteLine("1 - Por código Linear (Sequêncial)");
+        Console.WriteLine("2 - Por código Binário (Recursivo)");
+        Console.WriteLine("0 - Sair");
+        Console.WriteLine("Digite a opção desejada:");
+
+        string? input = Console.ReadLine();
+
+        //Verificação de entrada de dados
+        if(!int.TryParse(input, out int res) || res < 0 || res > 2){    //Se a string não virar int, for menor que 0 ou maior que 3, ele dá erro e volta para função.
+            Console.Clear();
+            Console.WriteLine("Opção invalida, tente novamente:");
+            Thread.Sleep(2500);
+            Console.Clear();
+            Buscar(lista);
+        }
+
+        if(input == "1"){
+            Console.Clear();
+
+            Console.WriteLine("Qual o código do aluno?");
+            int codigo = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Buscando aluno.");
+            Thread.Sleep(2000);
+
+            //Somente um loading visual para testes
+            Console.Clear();
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Clear();
+            lista.Buscar_Codigo_Seq(codigo);
+        }
+
+        if(input == "2"){
+            Console.Clear();
+
+            Console.WriteLine("O código será ordenado automaticamente para o uso da pesquisa binária.");
+            lista.Ordenar();
+
+            Console.WriteLine("Qual o código do aluno?");
+            int codigo = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Buscando aluno.");
+            Thread.Sleep(2000);
+
+            //Somente um loading visual para testes
+            Console.Clear();
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Write(". ");
+            Thread.Sleep(500);
+            Console.Clear();
+            lista.Buscar_Codigo_Bin(codigo);
+        }
+
+        if (input == "0"){
+            return;
+        }
+    }
+
+    static int Menu(){
+        Console.Clear();
+
+        Console.WriteLine("====> Sistemas de Alunos <====");
+        Console.WriteLine("1 - Listar alunos");
+        Console.WriteLine("2 - Cadastrar aluno");
+        Console.WriteLine("3 - Buscar aluno");
+        Console.WriteLine("4 - Ordenar lista de alunos por código");
+        Console.WriteLine("0 - Sair");
+        Console.WriteLine("Digite a opção desejada:");
+
+        string? input = Console.ReadLine();
+
+        if(!int.TryParse(input, out int res) || res < 0 || res > 6){
+            Console.Clear();
+            Console.WriteLine("Opção invalida, tente novamente:");
+            Thread.Sleep(2500);
+            Console.Clear();
+            res = Menu();
+        }
+        return res;   
     }
 }
-
 public class Alunos{
 
     public int Codigo{ get; private set;}
@@ -41,38 +196,6 @@ public class ListaEstatica{
     //Função que retorna o tamanho da lista
         return Tam;
     }
-    
-    public void Adicionar_Inicio(int codigo, string nome, double nota){       
-    //Função que adiciona um aluno ao inicío da lista
-        if(Tam == Tam_Max){
-            return;
-        }
-
-        for(int i = Tam; i > 0; i--){
-            aluno[i] = aluno[i - 1];       
-        }
-
-        aluno[0] = new Alunos(codigo, nome, nota);
-        Tam++;
-    }
-
-    public void Adicionar_Pos(int pos, int codigo, string nome, double nota){
-    //Função que adiciona uma tarefa na posição indicada
-        if(pos < 0 || pos > Tam){
-            return;
-        }
-         
-        if(Tam == Tam_Max){
-            return;
-        }
-
-        for(int i = Tam; i > pos; i--){
-            aluno[i] = aluno[i - 1];
-        }
-
-        aluno[pos] = new Alunos(codigo, nome, nota);
-        Tam++;
-    }
 
     public void Adicionar_Final(int codigo, string nome, double nota){
     //Função que adiciona uma tarefa na posição final da lista
@@ -103,11 +226,11 @@ public class ListaEstatica{
         Console.WriteLine("=========================================================================");
     }
 
-    public void Buscar_Codigo_Seq(string codigo){
+    public void Buscar_Codigo_Seq(int codigo){
     //Função que busca e retorna a posição do aluno com o código indicado
 
         for( int i = 0; i < Tam; i++){
-            if(aluno[i].Codigo == codigo()){
+            if(aluno[i].Codigo == codigo){
 
                 Console.Clear();
                 Console.WriteLine("=========================================================================");
@@ -123,24 +246,29 @@ public class ListaEstatica{
         
     }
 
-    public void Ordenar(ListaEstatica Lista_Alunos){
+    public void Ordenar(){
         
-        for(int i = 0; i < Lista_Alunos.Tam(); i++){
+        for(int i = 0; i < Tam; i++){
 
-            for(int j = 0; j < Lista_Alunos.Tam(); j++){
+            for(int j = 0; j < Tam - 1; j++){
                 
-                if(Lista_Alunos[j] > Lista_Alunos[j + 1]){
+                if(aluno[j].Codigo > aluno[j + 1].Codigo){
                     
-                    var temp = Lista_Alunos[j];
-                    Lista_Alunos[j] = Lista_Alunos[j + 1];
-                    Lista_Alunos[j = 1] = temp;
+                    var temp = aluno[j];
+                    aluno[j] = aluno[j + 1];
+                    aluno[j + 1] = temp;
 
                 }
             }
         }
     }
 
-    public void Buscar_Codigo_Bin(ListaEstatica lista, int codigo, int esq, int dir){
+    public void Buscar_Codigo_Bin(int codigo){
+        
+        Buscar_Codigo_Bin_Ex(codigo, 0, Tam - 1);
+    }
+
+    public void Buscar_Codigo_Bin_Ex(int codigo, int esq, int dir){
 
         if(esq > dir){
             Console.Clear();
@@ -151,21 +279,21 @@ public class ListaEstatica{
 
         int meio = (esq + dir)/2;
 
-        if(lista[meio].Codigo == codigo){
+        if(aluno[meio].Codigo == codigo){
             Console.Clear();
             Console.WriteLine("=========================================================================");
-            Console.WriteLine($"Código: {aluno[i].Codigo}  |  Nome: {aluno[i].Nome}  |  Nota: {aluno[i].Nota}");
+            Console.WriteLine($"Código: {aluno[meio].Codigo}  |  Nome: {aluno[meio].Nome}  |  Nota: {aluno[meio].Nota}");
             Console.WriteLine("=========================================================================");
             Thread.Sleep(5000);
             return;
         }
 
-        if(codigo < lista[meio].Codigo){
-            Buscar_Codigo_Bin(lista, codigo, dir, meio - 1);
+        if(codigo < aluno[meio].Codigo){
+            Buscar_Codigo_Bin_Ex(codigo, esq, meio - 1);
         }
         else
         {
-            Buscar_Codigo_Bin(lista, codigo, meio + 1, dir);
+            Buscar_Codigo_Bin_Ex(codigo,meio + 1, dir);
         }       
     }
 }
