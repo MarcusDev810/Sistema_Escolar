@@ -83,4 +83,23 @@ public class ListaEstatica{
         tarefa[Tam] = new Tarefas(codigo, nome, nota);
         Tam++;
     }
+
+    public void Imprimir(){
+    //Função que imprime a lista de tarefas
+        Console.Clear();
+        if(Tam == 0){
+            Console.WriteLine("=========================================================================");
+            Console.WriteLine("Lista de alunos Vazia");
+            Console.WriteLine("=========================================================================");
+            return;
+        }
+
+        Console.WriteLine("=========================================================================");
+
+        for(int i = 0; i < Tam; i++){
+            Console.WriteLine($"Código: {aluno[i].Codigo}  |  Nome: {aluno[i].Nome}  |  Nota: {aluno[i].Nota}");
+        }
+
+        Console.WriteLine("=========================================================================");
+    }
 }
