@@ -31,7 +31,7 @@ class Program{
                     Thread.Sleep(2500);
                     Console.Clear();
                     lista.Ordenar();
-                    Console.WriteLine("A lista de alunos foi ordenada!");
+                    Console.WriteLine("A lista de alunos foi ordenada!!!");
                 break;
    
             }
@@ -92,7 +92,7 @@ class Program{
             Console.WriteLine("Qual o código do aluno?");
             int codigo = int.Parse(Console.ReadLine());
 
-            Console.WriteLine($"Buscando aluno.");
+            Console.WriteLine($"Buscando aluno");
             Thread.Sleep(2000);
 
             //Somente um loading visual para testes
@@ -297,3 +297,5 @@ public class ListaEstatica{
         }       
     }
 }
+
+//OBS: Programar sem separar os objetos por arquivos é muito difícil. Obrigado POO :)
